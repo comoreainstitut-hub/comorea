@@ -1621,6 +1621,12 @@ html[data-theme="light"] .auth-logo h1 {
   text-align: center;
 }
 
+.profil-avatar-wrap {
+  position: relative;
+  width: 88px;
+  margin: 0 auto 16px;
+}
+
 .profil-avatar {
   width: 88px;
   height: 88px;
@@ -1632,13 +1638,345 @@ html[data-theme="light"] .auth-logo h1 {
   font-size: 2em;
   font-weight: 800;
   color: #fff;
-  margin: 0 auto 16px;
+  overflow: hidden;
   box-shadow: 0 12px 32px rgba(124,58,237,0.35);
+}
+
+.profil-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profil-avatar-edit-btn {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface3);
+  border: 2px solid var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+.profil-avatar-edit-btn:hover {
+  background: var(--accent);
+  transform: scale(1.08);
+}
+
+.profil-edit-btn {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: all 0.25s ease;
+}
+
+.profil-edit-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.profil-bio {
+  color: var(--text-muted);
+  font-size: 0.85em;
+  margin: 6px 0 20px;
+  line-height: 1.5;
+  min-height: 1.4em;
 }
 
 .profil-card h3 {
   font-size: 1.3em;
   margin-bottom: 4px;
+}
+
+/* Mini avatar dans le header */
+.header-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+  font-weight: 800;
+  color: #fff;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- MODAL ÉDITION DE PROFIL ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,10,0.72);
+  backdrop-filter: blur(4px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 440px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-box h3 {
+  font-size: 1.3em;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-close-x {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2em;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-x:hover { color: var(--text); }
+
+.edit-avatar-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.edit-avatar-preview {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4em;
+  font-weight: 800;
+  color: #fff;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 3px dashed var(--border);
+  cursor: pointer;
+  transition: border-color 0.25s ease;
+  position: relative;
+}
+
+.edit-avatar-preview.drag-over {
+  border-color: var(--accent2);
+}
+
+.edit-avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-avatar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.avatar-mini-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.78em;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.avatar-mini-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.avatar-mini-btn.danger:hover {
+  background: var(--error);
+}
+
+.edit-avatar-hint {
+  color: var(--muted);
+  font-size: 0.7em;
+  font-family: 'Space Mono', monospace;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions .create-btn {
+  margin-bottom: 0;
+}
+
+.modal-cancel-btn {
+  flex: 1;
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.modal-cancel-btn:hover {
+  background: var(--surface3);
+}
+
+textarea#editBio {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9em;
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+textarea#editBio:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(124,58,237,0.15);
+}
+
+/* ---------- LEÇON AVANT EXERCICE ---------- */
+.lesson-box {
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(6,214,160,0.05));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.lesson-box summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text);
+  user-select: none;
+}
+
+.lesson-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.lesson-chevron {
+  transition: transform 0.25s ease;
+  color: var(--accent2);
+}
+
+.lesson-box[open] .lesson-chevron {
+  transform: rotate(180deg);
+}
+
+.lesson-box-content {
+  padding: 0 20px 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.lesson-box-content h5 {
+  color: var(--accent2);
+  font-size: 0.95em;
+  margin-bottom: 10px;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lesson-box-content ul {
+  margin-left: 20px;
+  color: var(--text-muted);
+  font-size: 0.9em;
+  line-height: 1.7;
+}
+
+.lesson-box-content ul code {
+  background: var(--surface2);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--accent2);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9em;
+}
+
+.lesson-tip {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(6,214,160,0.08);
+  border-left: 3px solid var(--accent2);
+  border-radius: 8px;
+  font-size: 0.85em;
+  color: var(--text);
 }
 
 .profil-card .profil-level {
@@ -2168,8 +2506,9 @@ html[data-theme="light"] .auth-logo h1 {
       </div>
       <button class="util-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Changer de thème (T)" aria-label="Changer de thème">🌙</button>
       <button class="util-btn" id="soundToggleBtn" onclick="toggleSound()" title="Activer/couper le son (S)" aria-label="Activer ou couper le son">🔊</button>
-      <div class="user-badge">
-        👤 <span class="username" id="currentUsername"></span>
+      <div class="user-badge" onclick="openEditProfil()" title="Modifier mon profil" style="cursor:pointer;">
+        <span class="header-avatar" id="headerAvatar">👤</span>
+        <span class="username" id="currentUsername"></span>
       </div>
       <button class="logout-btn" onclick="handleLogout()">Déconnexion</button>
     </div>
@@ -3491,6 +3830,20 @@ html[data-theme="light"] .auth-logo h1 {
       <div class="module-desc">
         Créez une page HTML simple avec titre, paragraphes et listes. Testez votre compréhension des balises sémantiques.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : la structure HTML</h5>
+          <ul>
+              <li>Un document HTML commence toujours par <code>&lt;!DOCTYPE html&gt;</code>, suivi de <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> et <code>&lt;body&gt;</code>.</li>
+              <li>Le <code>&lt;head&gt;</code> contient les métadonnées (titre, encodage) ; le <code>&lt;body&gt;</code> contient tout ce qui est visible.</li>
+              <li>Les titres vont de <code>&lt;h1&gt;</code> (le plus important) à <code>&lt;h6&gt;</code>.</li>
+              <li>Une liste non-ordonnée s'écrit avec <code>&lt;ul&gt;</code> et des éléments <code>&lt;li&gt;</code>.</li>
+              <li>Un lien se crée avec <code>&lt;a href="..."&gt;texte&lt;/a&gt;</code>.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Pensez toujours à fermer vos balises : à chaque balise ouvrante correspond une balise fermante (sauf les balises auto-fermantes comme &lt;img&gt;).</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3540,6 +3893,20 @@ html[data-theme="light"] .auth-logo h1 {
       <div class="module-desc">
         Appliquez des styles CSS à une page HTML. Maîtrisez les sélecteurs, les couleurs, les marges et l'espacement.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : mettre en forme avec CSS</h5>
+          <ul>
+              <li>Le CSS cible des éléments via des sélecteurs : balise (<code>p</code>), classe (<code>.ma-classe</code>) ou identifiant (<code>#mon-id</code>).</li>
+              <li>Une règle CSS s'écrit <code>sélecteur { propriété: valeur; }</code>.</li>
+              <li>Les couleurs peuvent être des mots-clés, du hexadécimal (<code>#7c3aed</code>) ou du <code>rgb()</code>.</li>
+              <li>Les marges se gèrent avec <code>margin</code> (extérieur) et <code>padding</code> (intérieur).</li>
+              <li>Pensez à la unité <code>px</code>, <code>%</code>, ou <code>em</code> selon le besoin.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> En cas de doute sur une propriété, inspectez un élément dans votre navigateur (clic droit → Inspecter) pour voir le CSS appliqué en direct.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3588,6 +3955,20 @@ p {
       <div class="module-desc">
         Écrivez du code JavaScript pour manipuler des variables, effectuer des calculs et créer des fonctions simples.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : les variables JavaScript</h5>
+          <ul>
+              <li>On déclare une variable avec <code>let</code> (modifiable) ou <code>const</code> (constante, jamais réassignée).</li>
+              <li>Évitez <code>var</code>, obsolète et source de bugs.</li>
+              <li>Les types de base : nombre, chaîne de caractères (<code>"texte"</code>), booléen (<code>true</code>/<code>false</code>).</li>
+              <li>La concaténation de chaînes se fait avec <code>+</code> ou, mieux, avec des templates littéraux : <code>`Bonjour ${nom}`</code>.</li>
+              <li><code>console.log()</code> permet d'afficher une valeur dans la console pour déboguer.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Nommez vos variables clairement (ex. <code>ageUtilisateur</code> plutôt que <code>a</code>) : votre futur vous dira merci.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3642,6 +4023,20 @@ function aireRectangle(largeur, hauteur) {
       <div class="module-desc">
         Maîtrisez Flexbox pour créer des mises en page élastiques et responsives. Alignez, distribuez et espacez les éléments.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : Flexbox</h5>
+          <ul>
+              <li>Flexbox s'active avec <code>display: flex;</code> sur le conteneur parent.</li>
+              <li><code>justify-content</code> aligne les éléments horizontalement (start, center, space-between...).</li>
+              <li><code>align-items</code> aligne les éléments verticalement dans l'axe transversal.</li>
+              <li><code>flex-direction: column;</code> passe l'alignement en colonne au lieu de ligne.</li>
+              <li><code>gap</code> ajoute un espace régulier entre les éléments enfants, sans marges manuelles.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Flexbox fonctionne en une dimension (ligne OU colonne). Pour des grilles à deux dimensions, on préfère <code>display: grid;</code>.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3691,6 +4086,20 @@ function aireRectangle(largeur, hauteur) {
       <div class="module-desc">
         Manipulez le DOM avec JavaScript pour créer des interactions dynamiques. Modifiez le contenu et les styles en temps réel.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : manipuler le DOM</h5>
+          <ul>
+              <li><code>document.getElementById('id')</code> ou <code>document.querySelector('.classe')</code> récupèrent un élément.</li>
+              <li><code>element.textContent</code> lit ou change le texte affiché.</li>
+              <li><code>element.addEventListener('click', fonction)</code> réagit à un événement utilisateur.</li>
+              <li><code>element.classList.add/remove/toggle('classe')</code> gère les classes CSS dynamiquement.</li>
+              <li>Le DOM est une représentation en arbre de la page que JavaScript peut lire et modifier en temps réel.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Testez toujours vos sélecteurs dans la console du navigateur avant de les utiliser dans votre code.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3738,6 +4147,20 @@ document.getElementById('btn').addEventListener('click', function() {
       <div class="module-desc">
         Combinez HTML, CSS et JavaScript pour créer une application complète. Intégrez tout ce que vous avez appris dans un projet réel.
       </div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : avant le projet final</h5>
+          <ul>
+              <li>Un projet complet combine HTML (structure), CSS (style) et JavaScript (comportement).</li>
+              <li>Découpez le problème en petites étapes : structure d'abord, style ensuite, interactivité en dernier.</li>
+              <li>Testez fréquemment plutôt que d'écrire tout le code d'un coup.</li>
+              <li>Réutilisez les techniques vues dans les exercices précédents (variables, DOM, Flexbox).</li>
+              <li>N'hésitez pas à commenter votre code pour vous repérer.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Un bon réflexe : listez d'abord toutes les fonctionnalités attendues, puis cochez-les une par une au fur et à mesure.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3815,6 +4238,20 @@ document.getElementById('btn').addEventListener('click', function() {
         </div>
       </div>
       <div class="module-desc">Contrôlez une LED sur Arduino en la faisant clignoter avec différentes fréquences.</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : Arduino et les LED</h5>
+          <ul>
+              <li><code>pinMode(broche, OUTPUT)</code> configure une broche en sortie, dans <code>setup()</code>.</li>
+              <li><code>digitalWrite(broche, HIGH)</code> allume, <code>digitalWrite(broche, LOW)</code> éteint.</li>
+              <li><code>delay(ms)</code> met le programme en pause pendant le nombre de millisecondes indiqué.</li>
+              <li><code>loop()</code> s'exécute en boucle infinie tant que la carte est alimentée.</li>
+              <li>La broche 13 est reliée à une LED intégrée sur la plupart des cartes Arduino Uno.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> 1000 millisecondes = 1 seconde. Ajustez le <code>delay()</code> pour changer la vitesse de clignotement.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3882,6 +4319,20 @@ void loop() {
         </div>
       </div>
       <div class="module-desc">Maîtrisez les boucles for et while en Python. (En lien avec le Module 01 - Python Complet)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : les boucles en Python</h5>
+          <ul>
+              <li><code>for i in range(n):</code> répète un bloc n fois, avec i allant de 0 à n-1.</li>
+              <li><code>while condition:</code> répète tant que la condition reste vraie.</li>
+              <li>L'indentation (4 espaces) définit le bloc de code en Python, pas d'accolades.</li>
+              <li><code>break</code> arrête la boucle immédiatement, <code>continue</code> passe à l'itération suivante.</li>
+              <li>On peut parcourir une liste directement : <code>for element in ma_liste:</code>.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Attention aux boucles infinies avec <code>while</code> : vérifiez toujours que la condition finit par devenir fausse.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3925,6 +4376,20 @@ while ...:
         </div>
       </div>
       <div class="module-desc">Manipulez les promesses et la programmation asynchrone. (En lien avec le Module 02 - JavaScript Avancé & Node.js)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : async/await en JavaScript</h5>
+          <ul>
+              <li>Une <code>Promise</code> représente une valeur disponible immédiatement, plus tard, ou jamais (erreur).</li>
+              <li><code>async function</code> déclare une fonction qui peut utiliser <code>await</code>.</li>
+              <li><code>await</code> met en pause la fonction jusqu'à ce que la Promise soit résolue, sans bloquer le reste de la page.</li>
+              <li>On gère les erreurs avec un bloc <code>try { ... } catch (err) { ... }</code>.</li>
+              <li><code>fetch()</code> renvoie une Promise, très utilisée pour interroger un serveur.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> async/await est une façon plus lisible d'écrire du code équivalent à des <code>.then()</code> enchaînés.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -3969,6 +4434,20 @@ while ...:
         </div>
       </div>
       <div class="module-desc">Implémentez un algorithme de tri et une recherche dichotomique. (En lien avec le Module 03 - Structures de Données & Algorithmes)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : tri et recherche</h5>
+          <ul>
+              <li>Le tri à bulles compare les éléments voisins et les échange s'ils sont dans le mauvais ordre, en répétant jusqu'à ce que tout soit trié.</li>
+              <li>La recherche linéaire parcourt un tableau élément par élément : simple, mais lente sur de grandes données.</li>
+              <li>La recherche dichotomique (binaire) divise à chaque étape l'espace de recherche en deux, mais exige un tableau déjà trié.</li>
+              <li>La complexité (ex. O(n), O(n²), O(log n)) mesure comment le temps d'exécution évolue avec la taille des données.</li>
+              <li>JavaScript propose déjà <code>Array.prototype.sort()</code> pour trier sans tout réécrire.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Avant d'optimiser un algorithme, assurez-vous d'abord qu'il fonctionne correctement sur des petits exemples.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4015,6 +4494,20 @@ function rechercheDichotomique(tableau, valeur) {
         </div>
       </div>
       <div class="module-desc">Implémentez le pattern Observer avec une classe. (En lien avec le Module 04 - POO Avancée & Design Patterns)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : le pattern Observer</h5>
+          <ul>
+              <li>Le pattern Observer permet à un objet (le "sujet") de notifier automatiquement une liste d'observateurs lors d'un changement.</li>
+              <li>Il découple le code : le sujet ne connaît pas les détails des observateurs, seulement qu'il doit les notifier.</li>
+              <li>On implémente généralement <code>subscribe(observateur)</code>, <code>unsubscribe(observateur)</code> et <code>notify(donnée)</code>.</li>
+              <li>C'est le principe derrière les événements du navigateur (<code>addEventListener</code>) et de nombreux frameworks front-end.</li>
+              <li>Utile chaque fois que plusieurs parties d'une application doivent réagir à un même événement.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Pensez à une chaîne YouTube : les abonnés (observateurs) sont notifiés automatiquement dès qu'une vidéo (événement) est publiée.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4065,6 +4558,20 @@ function rechercheDichotomique(tableau, valeur) {
         </div>
       </div>
       <div class="module-desc">Consommez une API publique avec fetch et affichez le résultat. (En lien avec le Module 05 - APIs, Git & Travail Collaboratif)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : consommer une API REST</h5>
+          <ul>
+              <li>Une API REST expose des ressources via des URL et des verbes HTTP : <code>GET</code> (lire), <code>POST</code> (créer), <code>PUT</code>/<code>PATCH</code> (modifier), <code>DELETE</code> (supprimer).</li>
+              <li><code>fetch(url)</code> renvoie une Promise qu'il faut convertir en JSON avec <code>.json()</code>.</li>
+              <li>Les réponses ont un code de statut : 200 (succès), 404 (introuvable), 500 (erreur serveur).</li>
+              <li>Pensez à toujours gérer les erreurs réseau avec <code>try/catch</code> ou <code>.catch()</code>.</li>
+              <li>Le format JSON (JavaScript Object Notation) est le format d'échange de données le plus courant sur le web.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Ouvrez l'onglet "Réseau" des outils de développement pour observer les vraies requêtes envoyées par votre code.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4111,6 +4618,20 @@ function rechercheDichotomique(tableau, valeur) {
         </div>
       </div>
       <div class="module-desc">Combinez classes, fonctions et gestion des données. (En lien avec le Module 06 - Projet Final)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : avant le projet final</h5>
+          <ul>
+              <li>Un gestionnaire de tâches combine généralement : une structure de données (tableau d'objets), un affichage dynamique du DOM et une gestion d'événements.</li>
+              <li>Pensez à un modèle clair pour chaque tâche : par exemple <code>{ id, texte, terminee }</code>.</li>
+              <li>Séparez les responsabilités : une fonction qui ajoute une tâche, une qui l'affiche, une qui la marque terminée.</li>
+              <li>Le stockage local (<code>localStorage</code>) permet de conserver les tâches même après fermeture du navigateur.</li>
+              <li>Testez chaque fonctionnalité indépendamment avant de les assembler.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Commencez petit : faites fonctionner l'ajout d'une tâche avant de vous attaquer à la suppression ou à la sauvegarde.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4162,6 +4683,20 @@ function afficherTachesEnCours(liste) {
         </div>
       </div>
       <div class="module-desc">Écrivez des requêtes SQL avec jointure et agrégation. (En lien avec le Module 07 - Bases de Données : SQL & NoSQL)</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : SQL, requêtes et jointures</h5>
+          <ul>
+              <li><code>SELECT colonnes FROM table WHERE condition;</code> est la structure de base d'une requête.</li>
+              <li><code>JOIN</code> combine des lignes de plusieurs tables selon une colonne commune (souvent une clé étrangère).</li>
+              <li><code>INNER JOIN</code> ne garde que les correspondances présentes dans les deux tables.</li>
+              <li><code>GROUP BY</code> regroupe des lignes pour appliquer des fonctions comme <code>COUNT()</code>, <code>SUM()</code> ou <code>AVG()</code>.</li>
+              <li><code>ORDER BY</code> trie le résultat, <code>LIMIT</code> restreint le nombre de lignes renvoyées.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Écrivez d'abord votre <code>SELECT</code> sur une seule table pour vérifier les données, avant d'ajouter les jointures.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4225,6 +4760,20 @@ GROUP BY ...;"></textarea>
         </div>
       </div>
       <div class="module-desc">Créez une belle palette de couleurs harmonieuse pour un projet design.</div>
+      <details class="lesson-box" open>
+        <summary>📖 Petite leçon avant de commencer <span class="lesson-chevron">▾</span></summary>
+        <div class="lesson-box-content">
+          <h5>Rappel express : construire une palette de couleurs</h5>
+          <ul>
+              <li>La teinte (hue), la saturation et la luminosité (HSL) sont souvent plus intuitives à ajuster que le RVB.</li>
+              <li>Une palette harmonieuse combine généralement une couleur dominante, une ou deux couleurs secondaires et une couleur d'accent.</li>
+              <li>Le contraste entre le texte et le fond doit rester suffisant pour la lisibilité (accessibilité).</li>
+              <li>Les couleurs complémentaires (opposées sur le cercle chromatique) créent du contraste ; les couleurs analogues (voisines) créent de l'harmonie.</li>
+              <li>Des outils comme les cercles chromatiques aident à visualiser ces relations avant de coder les valeurs CSS.</li>
+          </ul>
+          <div class="lesson-tip">💡 <strong>Astuce :</strong> Limitez-vous à 3-4 couleurs principales par design : trop de couleurs nuit à la cohérence visuelle.</div>
+        </div>
+      </details>
       <div class="exercise-container">
         <div class="exercise-instruction">
           <h4>📋 Consignes</h4>
@@ -4285,8 +4834,12 @@ GROUP BY ...;"></textarea>
 
     <div class="profil-grid">
       <div class="profil-card">
-        <div class="profil-avatar" id="profilAvatar">?</div>
+        <div class="profil-avatar-wrap">
+          <div class="profil-avatar" id="profilAvatar">?</div>
+          <button class="profil-avatar-edit-btn" onclick="openEditProfil()" title="Changer ma photo" aria-label="Changer ma photo de profil">📷</button>
+        </div>
         <h3 id="profilName">—</h3>
+        <div class="profil-bio" id="profilBio"></div>
         <div class="profil-level" id="profilLevelLabel">Niveau 1</div>
         <div class="profil-xp-bar"><div class="fill" id="profilXpFill" style="width:0%"></div></div>
         <div class="profil-xp-label" id="profilXpLabel">0 / 100 XP</div>
@@ -4295,6 +4848,7 @@ GROUP BY ...;"></textarea>
           <div><span class="num" id="profilBadgesNum">0</span><span class="lbl">Badges</span></div>
           <div><span class="num" id="profilExosNum">0</span><span class="lbl">Exercices</span></div>
         </div>
+        <button class="profil-edit-btn" onclick="openEditProfil()">✏️ Modifier mon profil</button>
       </div>
 
       <div>
@@ -4314,6 +4868,31 @@ GROUP BY ...;"></textarea>
       <h4>🏅 Badges &amp; Succès</h4>
       <div class="badges-grid" id="badgesGrid"><!-- rempli en JS --></div>
     </div>
+
+    <div class="profil-grid">
+      <div class="profil-section">
+        <h4>💾 Sauvegarde de progression</h4>
+        <p style="color:var(--text-muted); font-size:0.85em; margin-bottom:14px;">Ta progression est stockée uniquement dans ce navigateur. Exporte-la pour la garder ou la transférer sur un autre appareil.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="profil-edit-btn" onclick="exportProgress()">⬇️ Exporter ma progression</button>
+          <button class="profil-edit-btn" onclick="document.getElementById('importFileInput').click()">⬆️ Importer une sauvegarde</button>
+          <input type="file" id="importFileInput" accept="application/json" style="display:none" onchange="importProgress(this.files[0])">
+        </div>
+      </div>
+
+      <div class="profil-section">
+        <h4>⏱️ Minuteur d'étude</h4>
+        <p style="color:var(--text-muted); font-size:0.85em; margin-bottom:14px;">25 min de focus, 5 min de pause. Reste concentré sur une formation à la fois.</p>
+        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+          <div id="pomodoroDisplay" style="font-family:'Space Mono',monospace; font-size:2em; font-weight:700; min-width:110px;">25:00</div>
+          <div id="pomodoroPhaseLabel" style="font-family:'Space Mono',monospace; font-size:0.75em; text-transform:uppercase; letter-spacing:1px; color:var(--accent2);">Focus</div>
+          <div style="display:flex; gap:10px;">
+            <button class="profil-edit-btn" id="pomodoroToggleBtn" onclick="togglePomodoro()">▶️ Démarrer</button>
+            <button class="profil-edit-btn" onclick="resetPomodoro()">↺ Réinitialiser</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -4325,6 +4904,62 @@ GROUP BY ...;"></textarea>
       Contact : <a href="mailto:paul178paul@gmail.com">paul178paul@gmail.com</a>
     </p>
   </footer>
+</div>
+
+<!-- ========== MODAL ÉDITION DE PROFIL ========== -->
+<div class="modal-overlay hidden" id="editProfilModal">
+  <div class="modal-box">
+    <h3>Modifier mon profil <button class="modal-close-x" onclick="closeEditProfil()" aria-label="Fermer">✕</button></h3>
+
+    <div class="edit-avatar-zone">
+      <div class="edit-avatar-preview" id="editAvatarPreview" onclick="document.getElementById('avatarFileInput').click()" title="Cliquez ou déposez une image">?</div>
+      <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleAvatarFile(this.files[0])">
+      <div class="edit-avatar-actions">
+        <button type="button" class="avatar-mini-btn" onclick="document.getElementById('avatarFileInput').click()">📤 Choisir une photo</button>
+        <button type="button" class="avatar-mini-btn danger" onclick="removeAvatarPhoto()">🗑 Retirer</button>
+      </div>
+      <div class="edit-avatar-hint">JPG, PNG ou GIF — 3 Mo max. Vous pouvez aussi glisser-déposer une image.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="editName">Prénom / Nom affiché</label>
+      <input type="text" id="editName" placeholder="Votre prénom" maxlength="40">
+    </div>
+
+    <div class="form-group">
+      <label for="editBio">Bio / Statut (optionnel)</label>
+      <textarea id="editBio" placeholder="Ex : Passionné(e) de code et de robotique 🚀" maxlength="140"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="editDomain">Formation favorite</label>
+      <select id="editDomain">
+        <option value="bureautique">Bureautique</option>
+        <option value="informatique">Informatique</option>
+        <option value="robotique">Robotique</option>
+        <option value="animation">Animation</option>
+        <option value="programmation">Programmation</option>
+        <option value="design">Design</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="editDailyGoal">Objectif quotidien (exercices / jour)</label>
+      <select id="editDailyGoal">
+        <option value="1">1 exercice</option>
+        <option value="2">2 exercices</option>
+        <option value="3">3 exercices</option>
+        <option value="5">5 exercices</option>
+      </select>
+    </div>
+
+    <div class="form-error" id="editProfilError" style="display:none;"></div>
+
+    <div class="modal-actions">
+      <button type="button" class="modal-cancel-btn" onclick="closeEditProfil()">Annuler</button>
+      <button type="button" class="create-btn" style="margin-bottom:0;" onclick="saveEditProfil()">💾 Enregistrer</button>
+    </div>
+  </div>
 </div>
 
 <!-- ========== TOASTS, CONFETTI & RACCOURCIS ========== -->
@@ -5414,9 +6049,16 @@ function showSuccess(message) {
 
     const initials = (currentUser.name || 'U').trim().slice(0, 2).toUpperCase();
     const avatarEl = document.getElementById('profilAvatar');
-    if (avatarEl) avatarEl.textContent = initials;
+    if (avatarEl) {
+      avatarEl.innerHTML = currentUser.avatar
+        ? `<img src="${currentUser.avatar}" alt="Photo de profil">`
+        : initials;
+    }
     const nameEl = document.getElementById('profilName');
     if (nameEl) nameEl.textContent = currentUser.name || 'Utilisateur';
+    const bioEl = document.getElementById('profilBio');
+    if (bioEl) bioEl.textContent = currentUser.bio || '';
+    renderHeaderAvatar();
     const levelLabel = document.getElementById('profilLevelLabel');
     if (levelLabel) levelLabel.textContent = 'Niveau ' + stats.level;
     const xpFill = document.getElementById('profilXpFill');
@@ -5484,6 +6126,153 @@ function showSuccess(message) {
   window.goToProfil = function () {
     const pill = Array.from(document.querySelectorAll('.activity')).find(a => a.getAttribute('onclick')?.includes("'profil'"));
     showFormation('profil', pill);
+  };
+
+  function renderHeaderAvatar() {
+    const el = document.getElementById('headerAvatar');
+    if (!el || !currentUser) return;
+    const initials = (currentUser.name || 'U').trim().slice(0, 2).toUpperCase();
+    el.innerHTML = currentUser.avatar
+      ? `<img src="${currentUser.avatar}" alt="Photo de profil">`
+      : `<span>${initials}</span>`;
+  }
+
+  /* ---------------------------------------------------------- */
+  /* 6bis. ÉDITION DE PROFIL (nom, photo, bio, préférences)       */
+  /* ---------------------------------------------------------- */
+  const MAX_AVATAR_BYTES = 3 * 1024 * 1024; // 3 Mo
+  let pendingAvatarDataUrl = undefined; // undefined = pas touché, null = supprimé, string = nouvelle photo
+
+  function renderEditAvatarPreview() {
+    const preview = document.getElementById('editAvatarPreview');
+    if (!preview) return;
+    const dataUrl = pendingAvatarDataUrl !== undefined ? pendingAvatarDataUrl : (currentUser && currentUser.avatar);
+    const initials = ((document.getElementById('editName')?.value || currentUser?.name || 'U').trim().slice(0, 2).toUpperCase());
+    preview.innerHTML = dataUrl ? `<img src="${dataUrl}" alt="Aperçu de la photo">` : initials;
+  }
+
+  window.openEditProfil = function () {
+    if (!currentUser) return;
+    pendingAvatarDataUrl = undefined;
+    const nameInput = document.getElementById('editName');
+    const bioInput = document.getElementById('editBio');
+    const domainSelect = document.getElementById('editDomain');
+    const goalSelect = document.getElementById('editDailyGoal');
+    const errorBox = document.getElementById('editProfilError');
+    if (nameInput) nameInput.value = currentUser.name || '';
+    if (bioInput) bioInput.value = currentUser.bio || '';
+    if (domainSelect) domainSelect.value = currentUser.domain || currentFormation || 'informatique';
+    if (goalSelect) goalSelect.value = String((gState && gState.dailyGoal) || 1);
+    if (errorBox) { errorBox.style.display = 'none'; errorBox.textContent = ''; }
+    renderEditAvatarPreview();
+    document.getElementById('editProfilModal')?.classList.remove('hidden');
+    setTimeout(() => nameInput?.focus(), 50);
+  };
+
+  window.closeEditProfil = function () {
+    document.getElementById('editProfilModal')?.classList.add('hidden');
+    pendingAvatarDataUrl = undefined;
+  };
+
+  // Fermer le modal en cliquant sur l'arrière-plan, ou avec Échap
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'editProfilModal') closeEditProfil();
+  });
+
+  function showEditProfilError(msg) {
+    const errorBox = document.getElementById('editProfilError');
+    if (!errorBox) return;
+    errorBox.textContent = '✗ ' + msg;
+    errorBox.style.display = 'block';
+  }
+
+  window.handleAvatarFile = function (file) {
+    if (!file) return;
+    if (!file.type || !file.type.startsWith('image/')) {
+      showEditProfilError('Merci de choisir un fichier image (jpg, png, gif...).');
+      return;
+    }
+    if (file.size > MAX_AVATAR_BYTES) {
+      showEditProfilError('Image trop lourde (3 Mo maximum). Choisissez une image plus légère.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingAvatarDataUrl = reader.result;
+      renderEditAvatarPreview();
+    };
+    reader.onerror = () => showEditProfilError('Impossible de lire cette image, réessayez.');
+    reader.readAsDataURL(file);
+  };
+
+  window.removeAvatarPhoto = function () {
+    pendingAvatarDataUrl = null;
+    renderEditAvatarPreview();
+  };
+
+  // Glisser-déposer une image directement sur l'aperçu de l'avatar
+  document.addEventListener('DOMContentLoaded', () => {
+    const preview = document.getElementById('editAvatarPreview');
+    if (!preview) return;
+    ['dragover', 'dragenter'].forEach(evt => preview.addEventListener(evt, (e) => {
+      e.preventDefault();
+      preview.classList.add('drag-over');
+    }));
+    ['dragleave', 'drop'].forEach(evt => preview.addEventListener(evt, (e) => {
+      e.preventDefault();
+      preview.classList.remove('drag-over');
+    }));
+    preview.addEventListener('drop', (e) => {
+      const file = e.dataTransfer?.files?.[0];
+      if (file) handleAvatarFile(file);
+    });
+  });
+
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.id === 'editName') renderEditAvatarPreview();
+  });
+
+  window.saveEditProfil = function () {
+    if (!currentUser) return;
+    const name = (document.getElementById('editName')?.value || '').trim();
+    const bio = (document.getElementById('editBio')?.value || '').trim();
+    const domain = document.getElementById('editDomain')?.value || currentUser.domain;
+    const goal = document.getElementById('editDailyGoal')?.value || '1';
+
+    if (!name) {
+      showEditProfilError('Le nom ne peut pas être vide.');
+      return;
+    }
+    if (name.length > 40) {
+      showEditProfilError('Le nom est trop long (40 caractères maximum).');
+      return;
+    }
+
+    currentUser.name = name;
+    currentUser.bio = bio;
+    currentUser.domain = domain;
+
+    if (pendingAvatarDataUrl === null) {
+      delete currentUser.avatar;
+    } else if (typeof pendingAvatarDataUrl === 'string') {
+      currentUser.avatar = pendingAvatarDataUrl;
+    }
+
+    try {
+      safeStorage.setItem('comorea_user', JSON.stringify(currentUser));
+    } catch (err) {
+      console.warn('Impossible de sauvegarder le profil localement.', err);
+    }
+
+    if (typeof setDailyGoal === 'function') setDailyGoal(goal);
+
+    try {
+      document.getElementById('currentUsername').textContent = currentUser.name;
+    } catch (err) { /* ignore */ }
+
+    renderProfil();
+    closeEditProfil();
+    showToast('Profil mis à jour !', 'Vos informations ont été enregistrées.', '✅');
   };
 
   /* ---------------------------------------------------------- */
@@ -5587,6 +6376,140 @@ function showSuccess(message) {
   });
 
   /* ---------------------------------------------------------- */
+  /* 8bis. SAUVEGARDE / RESTAURATION DE PROGRESSION (JSON)        */
+  /* ---------------------------------------------------------- */
+  window.exportProgress = function () {
+    if (!currentUser || !gState) {
+      showToast('Rien à exporter', 'Connecte-toi d\'abord.', '⚠️', 'error-toast');
+      return;
+    }
+    const payload = {
+      type: 'comorea_backup',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      user: currentUser,
+      state: gState
+    };
+    try {
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = (currentUser.name || 'comorea').replace(/[^a-z0-9]+/gi, '_');
+      a.href = url;
+      a.download = `Sauvegarde_COMOREA_${safeName}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Sauvegarde exportée !', 'Conserve ce fichier pour restaurer ta progression.', '💾');
+    } catch (err) {
+      console.warn('Export impossible', err);
+      showToast('Export impossible', 'Une erreur est survenue.', '⚠️', 'error-toast');
+    }
+  };
+
+  window.importProgress = function (file) {
+    if (!file) return;
+    if (!currentUser) {
+      showToast('Connecte-toi d\'abord', 'Il faut un profil actif pour importer.', '⚠️', 'error-toast');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      let payload;
+      try {
+        payload = JSON.parse(reader.result);
+      } catch (err) {
+        showToast('Fichier invalide', 'Ce n\'est pas une sauvegarde COMOREA valide.', '⚠️', 'error-toast');
+        return;
+      }
+      if (!payload || payload.type !== 'comorea_backup' || !payload.state) {
+        showToast('Fichier invalide', 'Ce fichier ne semble pas être une sauvegarde COMOREA.', '⚠️', 'error-toast');
+        return;
+      }
+      if (payload.user) {
+        currentUser.name = payload.user.name || currentUser.name;
+        currentUser.bio = payload.user.bio || currentUser.bio;
+        currentUser.domain = payload.user.domain || currentUser.domain;
+        if (payload.user.avatar) currentUser.avatar = payload.user.avatar;
+        try { safeStorage.setItem('comorea_user', JSON.stringify(currentUser)); } catch (e) {}
+      }
+      gState = payload.state;
+      saveState();
+      renderProfil();
+      renderHeaderAvatar();
+      updateHeaderBadge();
+      document.getElementById('importFileInput').value = '';
+      showToast('Progression restaurée !', 'Ta sauvegarde a été importée avec succès.', '✅');
+      checkBadges();
+    };
+    reader.onerror = () => showToast('Lecture impossible', 'Réessaie avec un autre fichier.', '⚠️', 'error-toast');
+    reader.readAsText(file);
+  };
+
+  /* ---------------------------------------------------------- */
+  /* 8ter. MINUTEUR D'ÉTUDE (POMODORO)                            */
+  /* ---------------------------------------------------------- */
+  const POMODORO_FOCUS_SEC = 25 * 60;
+  const POMODORO_BREAK_SEC = 5 * 60;
+  let pomodoroRemaining = POMODORO_FOCUS_SEC;
+  let pomodoroPhase = 'focus';
+  let pomodoroInterval = null;
+  let pomodoroRunning = false;
+
+  function formatPomodoro(sec) {
+    const m = Math.floor(sec / 60).toString().padStart(2, '0');
+    const s = Math.floor(sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function renderPomodoro() {
+    const disp = document.getElementById('pomodoroDisplay');
+    const label = document.getElementById('pomodoroPhaseLabel');
+    const btn = document.getElementById('pomodoroToggleBtn');
+    if (disp) disp.textContent = formatPomodoro(pomodoroRemaining);
+    if (label) label.textContent = pomodoroPhase === 'focus' ? 'Focus' : 'Pause';
+    if (btn) btn.textContent = pomodoroRunning ? '⏸️ Pause' : '▶️ Démarrer';
+  }
+
+  window.togglePomodoro = function () {
+    if (pomodoroRunning) {
+      pomodoroRunning = false;
+      clearInterval(pomodoroInterval);
+      renderPomodoro();
+      return;
+    }
+    pomodoroRunning = true;
+    renderPomodoro();
+    pomodoroInterval = setInterval(() => {
+      pomodoroRemaining--;
+      if (pomodoroRemaining <= 0) {
+        if (pomodoroPhase === 'focus') {
+          pomodoroPhase = 'break';
+          pomodoroRemaining = POMODORO_BREAK_SEC;
+          showToast('Session terminée !', 'Prends une pause de 5 minutes.', '☕', 'badge-toast');
+          if (typeof playLevelUpTone === 'function') playLevelUpTone();
+        } else {
+          pomodoroPhase = 'focus';
+          pomodoroRemaining = POMODORO_FOCUS_SEC;
+          showToast('Pause terminée', 'Nouvelle session de focus de 25 minutes.', '🎯');
+        }
+      }
+      renderPomodoro();
+    }, 1000);
+  };
+
+  window.resetPomodoro = function () {
+    pomodoroRunning = false;
+    clearInterval(pomodoroInterval);
+    pomodoroPhase = 'focus';
+    pomodoroRemaining = POMODORO_FOCUS_SEC;
+    renderPomodoro();
+  };
+
+  document.addEventListener('DOMContentLoaded', renderPomodoro);
+
+  /* ---------------------------------------------------------- */
   /* 9. INTÉGRATION NON-INVASIVE (on enrobe les fonctions existantes) */
   /* ---------------------------------------------------------- */
   const _origLoginUser = window.loginUser;
@@ -5602,6 +6525,7 @@ function showSuccess(message) {
     const savedSound = (() => { try { return safeStorage.getItem('comorea_sound'); } catch (e) { return null; } })();
     if (savedSound === '0') { soundOn = false; const b = document.getElementById('soundToggleBtn'); if (b) b.textContent = '🔇'; }
     markDomainVisited(currentFormation || 'informatique');
+    renderHeaderAvatar();
   };
 
   const _origShowFormation = window.showFormation;
